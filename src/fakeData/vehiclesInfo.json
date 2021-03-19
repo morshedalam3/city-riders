@@ -1,0 +1,26 @@
+[
+    {"imagUrl": "https://i.ibb.co/ZL99yrh/Frame.png",
+     "name": "Bike",
+     "icon":"https://i.ibb.co/6BCjJkt/peopleicon.png",
+     "rent": 15,
+     "seat": 2
+    },
+    {"imagUrl": "https://i.ibb.co/XWQTY9z/Frame-2.png",
+     "name": "Car",
+     "icon":"https://i.ibb.co/6BCjJkt/peopleicon.png",
+     "rent": 67,
+     "seat": 4
+    },
+    {"imagUrl": "https://i.ibb.co/52jQ4vy/Frame-1.png",
+    "name": "Bus",
+    "icon":"https://i.ibb.co/6BCjJkt/peopleicon.png",
+    "rent": 100,
+    "seat": 40
+    },
+    {"imagUrl": "https://i.ibb.co/XkbdChV/Group.png",
+    "name": "Train",
+    "icon":"https://i.ibb.co/6BCjJkt/peopleicon.png",
+    "rent":15,
+    "seat": 3
+    }
+]
