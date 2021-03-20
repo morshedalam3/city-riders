@@ -7,6 +7,7 @@ import { useHistory, useLocation } from 'react-router';
 
 const Login = () => {
   const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+  
   if (firebase.apps.length === 0) {
     firebase.initializeApp(firebaseConfig);
   }
@@ -15,6 +16,7 @@ const Login = () => {
     isFormValid: false,
     email: '',
     password: '',
+    confirm_Password: '',
     name: '',
     error: '',
     success: false
@@ -36,8 +38,6 @@ const Login = () => {
         setLoggedInUser(signedInUser);
         history.replace(from);
 
-        // console.log(user);
-
       }).catch((error) => {
         var errorCode = error.code;
         var errorMessage = error.message;
@@ -58,6 +58,7 @@ const Login = () => {
         const { email, displayName } = result.user;
         const signedInUser = { name: displayName, email }
         setLoggedInUser(signedInUser);
+        history.replace(from);
         var accessToken = credential.accessToken;
 
       })
@@ -66,7 +67,7 @@ const Login = () => {
         var errorMessage = error.message;
         var email = error.email;
         var credential = error.credential;
-        console.log(errorMessage, email, credential,errorCode)
+        console.log(errorMessage, email, credential, errorCode)
       });
 
   }
@@ -74,8 +75,8 @@ const Login = () => {
   const handleBlur = (event) => {
     let isFormValid = true;
     if (event.target.name === 'email') {
-      const inEmailValid = /\S+@\S+\.\S+/.test(event.target.value);
-      isFormValid = inEmailValid;
+      const isEmailValid = /\S+@\S+\.\S+/.test(event.target.value);
+      isFormValid = isEmailValid;
 
     }
     if (event.target.name === 'password') {
@@ -95,29 +96,30 @@ const Login = () => {
   const handleSubmit = (e) => {
     console.log(user.email, user.password)
     if (user.email && user.password) {
-      firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
-        .then(res => {
-          const newUserInfo = { ...user }
-          newUserInfo.error = '';
-          newUserInfo.success = true;
-          setUser(newUserInfo);
-          setLoggedInUser(newUserInfo);
-          history.replace(from)
-        })
-        .catch((error) => {
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          console.log(errorCode, errorMessage)
-          const newUserInfo = { ...user }
-          newUserInfo.error = error.message;
-          newUserInfo.success = false;
-          setUser(newUserInfo);
-      
-          // ..
-        });
+      if (user.password === user.confirm_Password) {
+        firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
+          .then(res => {
+            const newUserInfo = { ...user }
+            newUserInfo.error = '';
+            newUserInfo.success = true;
+            setUser(newUserInfo);
+            setLoggedInUser(newUserInfo);
+            history.replace(from)
+          })
+          .catch((error) => {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            console.log(errorCode, errorMessage)
+            const newUserInfo = { ...user }
+            newUserInfo.error = error.message;
+            newUserInfo.success = false;
+            setUser(newUserInfo);
 
+            // ..
+          });
+      }
     }
-    if (!newUser && user.email && user.password) {
+    if (!newUser && user.email) {
       firebase.auth().signInWithEmailAndPassword(user.email, user.password)
         .then(res => {
           const newUserInfo = { ...user }
@@ -126,48 +128,46 @@ const Login = () => {
           setUser(newUserInfo);
           setLoggedInUser(newUserInfo);
           history.replace(from)
-      
+
         })
         .catch((error) => {
           const newUserInfo = { ...user }
           newUserInfo.error = error.message;
           newUserInfo.success = false;
           setUser(newUserInfo);
-       
-        });
-    } 
 
+        });
+    }
     e.preventDefault();
   }
   return (
-    <div style={{ marginTop: '20px'}}>
-      {/* <input type="checkbox" onChange={() => setNewUser(!newUser)} name="newUser" id=""/>
-          <label htmlFor="newUser">New User sign up</label> */}
+    <div style={{ marginTop: '20px' }}>
       <form onSubmit={handleSubmit} className="container border">
         {newUser && <label htmlFor="firstName">Name</label>}
         {newUser && <input className="form-control" name="name" type="text" onBlur={handleBlur} placeholder="Enter your name" required />}<br />
+
         <label htmlFor="firstName">Email</label>
         <input className="form-control" onBlur={handleBlur} type="text" name="email" placeholder="your email" required /><br />
         <label htmlFor="firstName">Password</label>
-        <input className="form-control" onBlur={handleBlur} type="password" name="password" placeholder="your password" required /><br />
+        <input className="form-control" id="password" onBlur={handleBlur} type="password" name="password" placeholder="your password" required /><br />
         <label htmlFor="firstName">Confirm Password</label>
-        <input className="form-control" onBlur={handleBlur} type="password" name="password" placeholder="confirm password" required /><br />
+        <input className="form-control" id="confirm_Password" onBlur={handleBlur} type="password" name="confirm_Password" placeholder="confirm password" required /><br />
         <input className="form-control bg-primary" type="submit" value="submit" /><br />
       </form>
+
       <div className="text-center">
-      <label htmlFor="newUser">Have you an account? </label>
-      
-      <input type="checkbox" onChange={() => setNewUser(!newUser)} name="newUser" id="" />
+        <label htmlFor="newUser">Have you an account? </label>
+        <input type="checkbox" onClick={() => setNewUser(!newUser)} name="newUser" id="" />
 
+        <p style={{ color: 'red' }}>{user.error}</p>
+        {user.success && <p style={{ color: 'green' }}> Account {newUser ? 'created' : 'logged in'} successfully</p>}
 
-      <p style={{ color: 'red' }}>{user.error}</p>
-      { user.success && <p style={{ color: 'green' }}> Account {newUser ? 'created' : 'logged in'} successfully</p>}
-
-      <button className="m-2 bg-danger"
-        onClick={googleSignIn}>login with google</button>
-      <button className="m-2 bg-primary" onClick={facebookSignIn}> login with facebook</button>
+        <button className="m-2 bg-danger"
+          onClick={googleSignIn}>login with google</button>
+        <button className="m-2 bg-primary"
+          onClick={facebookSignIn}> login with facebook</button>
       </div>
-     
+
     </div>
   );
 };

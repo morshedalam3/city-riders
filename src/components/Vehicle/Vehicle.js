@@ -8,9 +8,7 @@ const Vehicle = ({vehicle}) => {
     const handleBook = (name) => {
         history.push(`/destination/${name}`);
     }
-    const style = {
-        marginTop:'200px'
-    }
+    
 
     return (
         

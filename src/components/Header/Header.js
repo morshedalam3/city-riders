@@ -19,13 +19,13 @@ const Header = () => {
                     <Link to="/login">Login</Link>
                 </li>
                 <li>
-                    <Link to="/destination">Destination</Link>
+                    <Link to="/login">Destination</Link>
                 </li>
                 <li>
-                    <Link  to="/destination">Contact</Link>
+                    <Link  to="/contact">Contact</Link>
                 </li>
                 <li>
-                    <Link to="/destination">Blog</Link>
+                    <Link to="/blog">Blog</Link>
                 </li>
                 <li> {loggedInUser.name}</li>
             </ul>
