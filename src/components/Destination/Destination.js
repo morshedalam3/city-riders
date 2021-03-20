@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import fakeData from '../../fakeData/vehiclesInfo.json';
-import { useParams } from 'react-router';
+import { useParams } from 'react-router-dom';
 
 
 const Destination = () => {
@@ -35,6 +35,8 @@ const Destination = () => {
 
         {
           clicked ? <form className="container" onSubmit={handleSubmit}>
+            <label for="birthday">Date</label>
+            <input onBlur={handleBlur} type="date" id="birthday" name="date"></input>
             <label for="inputsm">Pick from</label>
             <input className="form-control" onBlur={handleBlur} type="search" name="from" placeholder="search" />
             <label for="inputsm">Pick to</label>
@@ -43,6 +45,7 @@ const Destination = () => {
           </form>
 
             : <div style={{ marginLeft: '20px' }}>
+              <p>Date: {place.date}</p>
               <p>From: {place.from}</p>
               <p> To: {place.to}</p>
 

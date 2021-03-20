@@ -3,11 +3,11 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import firebaseConfig from "./firebase.config"
 import { UserContext } from '../../App';
-import { useHistory, useLocation } from 'react-router';
+import { useHistory, useLocation } from 'react-router-dom';
 
 const Login = () => {
   const [loggedInUser, setLoggedInUser] = useContext(UserContext);
-  
+
   if (firebase.apps.length === 0) {
     firebase.initializeApp(firebaseConfig);
   }

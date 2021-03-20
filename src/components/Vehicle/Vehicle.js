@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Card } from 'react-bootstrap';
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 
 
 const Vehicle = ({vehicle}) => {
