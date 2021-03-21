@@ -143,8 +143,13 @@ const Login = () => {
   return (
     <div style={{ marginTop: '20px' }}>
       <form onSubmit={handleSubmit} className="container border">
-        {newUser && <label htmlFor="firstName">Name</label>}
-        {newUser && <input className="form-control" name="name" type="text" onBlur={handleBlur} placeholder="Enter your name" required />}<br />
+
+        { newUser ? <div><h1>Create account</h1>
+          <label htmlFor="firstName">Name</label>
+          <input className="form-control" name="name" type="text" onBlur={handleBlur} placeholder="Enter your name" required /><br />
+        </div> :
+          <h1>Login your Account</h1>
+        }
 
         <label htmlFor="firstName">Email</label>
         <input className="form-control" onBlur={handleBlur} type="text" name="email" placeholder="your email" required /><br />
@@ -156,8 +161,7 @@ const Login = () => {
       </form>
 
       <div className="text-center">
-        <label htmlFor="newUser">Have you an account? </label>
-        <input type="checkbox" onClick={() => setNewUser(!newUser)} name="newUser" id="" />
+        <label htmlFor="newUser">Have you an account? </label> <span className="bg-primary border" onClick={ () => setNewUser(!newUser)}> /login</span>
 
         <p style={{ color: 'red' }}>{user.error}</p>
         {user.success && <p style={{ color: 'green' }}> Account {newUser ? 'created' : 'logged in'} successfully</p>}
