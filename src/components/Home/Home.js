@@ -19,8 +19,8 @@ const Home = () => {
     }
     
     return (
-        <div style={styles} className="justify-content-center">
-            <div style={{marginTop:'200px'}} className="row">
+        <div style={styles} className=" container justify-content-center">
+            <div style={{marginTop:'300px'}} className="row">
             {
                vehicles.map(vehicle => <Vehicle key={vehicle.name} vehicle={vehicle}></Vehicle>)
            }

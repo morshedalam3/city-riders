@@ -38,8 +38,8 @@ const Destination = () => {
 
         {
           clicked ? <form className="container" onSubmit={handleSubmit}>
-            <label for="birthday">Date</label>
-            <input onBlur={handleBlur} type="date" id="birthday" name="date"></input>
+            <label for="date">Date</label>
+            <input onBlur={handleBlur} type="date" id="birthday" name="date"></input> <br/>
             <label for="inputsm">Pick from</label>
             <input className="form-control" onBlur={handleBlur} type="search" name="from" placeholder="search" />
             <label for="inputsm">Pick to</label>

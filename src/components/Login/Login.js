@@ -151,11 +151,11 @@ const Login = () => {
           <h1>Login your Account</h1>
         }
 
-        <label htmlFor="firstName">Email</label>
+        <label htmlFor="email">Email</label>
         <input className="form-control" onBlur={handleBlur} type="text" name="email" placeholder="your email" required /><br />
-        <label htmlFor="firstName">Password</label>
+        <label htmlFor="password">Password</label>
         <input className="form-control" id="password" onBlur={handleBlur} type="password" name="password" placeholder="your password" required /><br />
-        <label htmlFor="firstName">Confirm Password</label>
+        <label htmlFor="confirm-password">Confirm Password</label>
         <input className="form-control" id="confirm_Password" onBlur={handleBlur} type="password" name="confirm_Password" placeholder="confirm password" required /><br />
         <input className="form-control bg-primary" type="submit" value="submit" /><br />
       </form>

@@ -13,7 +13,7 @@ const Vehicle = ({vehicle}) => {
     return (
         
         <div className="text-center my-3 mx-3">
-        <Card style={{ width: '20rem' }}>
+        <Card className="justify-content-center" style={{ width: '15rem' }}>
                 <Card.Img variant="top" src={vehicle.imagUrl} />
                 <Card.Body>
                     <Card.Title></Card.Title>
